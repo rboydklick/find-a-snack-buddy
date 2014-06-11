@@ -52,9 +52,6 @@ function imagesColumn() {
 			}
 		});
 
-
-		slide.on('click', showNextSlide);
-
 		peoplesPhotos.push(slide);
 
 } // End For loop
@@ -69,15 +66,6 @@ function createLightbox() {
 	lightbox = new Lightbox();
 	mainContext.add(lightbox);
 	lightbox.show(peoplesPhotos[0]);
-}
-
-
-function showNextSlide() {
-	index++;
-	if(index >= peoplesPhotos.length){
-		index = 0;
-	}
-	lightbox.show(peoplesPhotos[index]);
 }
 
 });
