@@ -1,5 +1,10 @@
 /* globals define */
 define(function(require, exports, module) {
+
+	/*****************************************
+	**** Global variabls used in this app ****
+	*****************************************/
+
 	//'use strict';
 	// import dependencies
 	var Engine = require('famous/core/Engine');
@@ -9,52 +14,81 @@ define(function(require, exports, module) {
 	var Surface = require('famous/core/Surface');
 	var Lightbox = require('famous/views/Lightbox');
 
+	// "Main Context" -- A div that Famo.us adds the 'surfaces' to
 	var mainContext = Engine.createContext();
 
-	// An array with peoples' photos in it
-	var peoplesPhotos = [];
 	// index
 	var index = 0;
 
-	// Run functions
+	// Column surface to add photos too
+
+	var photoColumn = new Surface({
+		content: '<p>beebop</p>',
+		size: [200,400],
+		properties: {
+			backgroundColor: '#cccccc'
+		}
+	});
+
+
+
+	/***********************************
+	******** Call the functions ********
+	***********************************/
 	imagesColumn();
 
-	// Functions
+
+	/***********************************
+	**** Functions used in this app ****
+	***********************************/
+
+	// imageColumn function: takes the images and puts them in a column
 	function imagesColumn() {
-		var imagesColumnContent = [
-		'<img src="content/images/famous_logo.png" />',
-		'<img src="content/images/doge150x150.png" />'
-		];
 
-
-
+		// Create a surface for the background
 		var background = new Surface({
 			properties: {
-				backgroundColor: '#000000'
+				backgroundColor: '#000000',
+				textAlign: 'center'
 			}
 		});
 
+		var centerSurface = new Modifier({
+			size: [200,'auto'],
+    		origin: [0.5, 0.5],
+    		align: [0.5, 0.5] 
+		});
 
+		// Add the background surface to the main context
 		mainContext.add(background);
 
-		for (var i = 0; i < imagesColumnContent.length; i++) {
-			var slide = new Surface({
-				content: imagesColumnContent[i],
-				properties: {
-					color: 'white',
-					lineHeight: '200%',
-					textAlign: 'center',
-					fontSize: '36px',
-				}
-			});
+		// An array of all the images used in the column of peoples' photos
+		var imageColumnArray = [
+		'doge150x150.png',
+		'famous_logo.png'
+		];
 
-			peoplesPhotos.push(slide);
+		var imageColumnContent = "";
+		for (var i = 0; i < imageColumnArray.length; i++) {
+			imageColumnContent += '<img src="content/images/' + imageColumnArray[i] + '"/>';
+			if(i!=imageColumnArray.length - 1){
+				imageColumnContent += "<br/>";
+			}
+		}
 
-		} // End For loop
 
-		mainContext.add(slide);
+		var photos = new Surface({
+			content: imageColumnContent,
+			properties: {
+				backgroundColor: '#cccccc',
+				textAlign: 'center',
+			}
+		});
+
+		mainContext.add(centerSurface).add(photos);
 
 	} // End Images column function
 
-});
+
+}); // End of define function
 
