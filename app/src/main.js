@@ -68,6 +68,7 @@ define(function(require, exports, module) {
 		'famous_logo.png'
 		];
 
+		// Take contents of that array, put it into a variable as HTML content that has <br> tags in between <img> tags
 		var imageColumnContent = "";
 		for (var i = 0; i < imageColumnArray.length; i++) {
 			imageColumnContent += '<img src="content/images/' + imageColumnArray[i] + '"/>';
@@ -76,7 +77,7 @@ define(function(require, exports, module) {
 			}
 		}
 
-
+		// Create new surface, add HTML content from imageColumnContent into the surface
 		var photos = new Surface({
 			content: imageColumnContent,
 			size: [200, imageColumnArray.length*200],
@@ -86,6 +87,7 @@ define(function(require, exports, module) {
 			}
 		});
 
+		// Add 'photos' surface to mainContext, add modifier that center aligns the 'photos' surface
 		mainContext.add(stateModifier).add(photos);
 
 	} // End Images column function
