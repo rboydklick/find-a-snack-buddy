@@ -13,12 +13,18 @@ define(function(require, exports, module) {
 	var ImageSurface = require('famous/surfaces/ImageSurface');
 	var Surface = require('famous/core/Surface');
 	var Lightbox = require('famous/views/Lightbox');
+	var StateModifier = require('famous/modifiers/StateModifier');
 
 	// "Main Context" -- A div that Famo.us adds the 'surfaces' to
 	var mainContext = Engine.createContext();
 
 	// index
 	var index = 0;
+
+	var stateModifier = new StateModifier({
+		align: [0.5, 0.5],
+		origin: [0.5, 0.5],
+	});
 
 	// Column surface to add photos too
 
@@ -53,12 +59,6 @@ define(function(require, exports, module) {
 			}
 		});
 
-		var centerSurface = new Modifier({
-			size: [200,'auto'],
-    		origin: [0.5, 0.5],
-    		align: [0.5, 0.5] 
-		});
-
 		// Add the background surface to the main context
 		mainContext.add(background);
 
@@ -79,13 +79,14 @@ define(function(require, exports, module) {
 
 		var photos = new Surface({
 			content: imageColumnContent,
+			size: [200, imageColumnArray.length*200],
 			properties: {
 				backgroundColor: '#cccccc',
 				textAlign: 'center',
 			}
 		});
 
-		mainContext.add(centerSurface).add(photos);
+		mainContext.add(stateModifier).add(photos);
 
 	} // End Images column function
 
