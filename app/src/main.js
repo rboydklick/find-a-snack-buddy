@@ -25,7 +25,7 @@ define(function(require, exports, module) {
 	// Column surface to add photos too
 
 	var photoColumn = new Surface({
-		content: '<p>beebop</p>',
+		content: '',
 		size: [200,400],
 		properties: {
 			backgroundColor: '#cccccc'
@@ -33,10 +33,15 @@ define(function(require, exports, module) {
 	});
 
 
+	var photoColumnHeight = 0;
+
+
 	/***********************************
 	******** Call the functions ********
 	***********************************/
+	rotatingBackground();
 	imagesColumn();
+	addSlotMachine();
 
 
 	/***********************************
@@ -44,23 +49,46 @@ define(function(require, exports, module) {
 	***********************************/
 
 	// imageColumn function: takes the images and puts them in a column
-	function imagesColumn() {
+
+	function rotatingBackground() {		
 
 		// Create a surface for the background
+		var backgroundWidth = $(window).width()*1.5;
 		var background = new Surface({
+
+			size: [backgroundWidth, backgroundWidth],
 			properties: {
-				backgroundColor: '#000000',
+				background: 'url(content/images/retro_burst_vector.svg) no-repeat center center',
+				backgroundSize: 'cover',
 				textAlign: 'center'
 			}
 		});
 
+
+		var initialTime = Date.now();
+		var rotate = new Modifier({
+			origin: [0.5, 0.5],
+		    transform : function() {
+		      return Transform.rotateZ(.0001 * (Date.now() - initialTime));
+		    } 
+		});
+
+
 		// Add the background surface to the main context
-		mainContext.add(background);
+		mainContext.add(rotate).add(background);
+
+	}
+
+	function imagesColumn() {
 
 		// An array of all the images used in the column of peoples' photos
 		var imageColumnArray = [
-		'doge150x150.png',
-		'famous_logo.png'
+		'4355_2257.jpg',
+		'4541_2523.jpg',
+		'4603_2645.jpg',
+		'5042_2603.jpg',
+		'5049_2505.jpg',
+		'5077_2633.jpg'
 		];
 
 		// Take contents of that array, put it into a variable as HTML content that has <br> tags in between <img> tags
@@ -75,9 +103,9 @@ define(function(require, exports, module) {
 		// Create new surface, add HTML content from imageColumnContent into the surface
 		var photos = new Surface({
 			content: imageColumnContent,
-			size: [200, imageColumnArray.length*200],
+			size: [200, ''],
 			properties: {
-				backgroundColor: '#cccccc',
+				backgroundColor: '#ffffff',
 				textAlign: 'center',
 			}
 		});
@@ -90,15 +118,36 @@ define(function(require, exports, module) {
 
 		// Create transform to animate the column
 		stateModifier.setTransform(
-		  Transform.translate(0, 500, 0),
+		  Transform.translate(0, 200, 0),
 		  { duration : 1000, curve: Easing.inOutBack }
 		);
+
+		photos.addClass('photos');
 
 		// Add 'photos' surface to mainContext, add modifier that center aligns the 'photos' surface
 		mainContext.add(stateModifier).add(photos);
 
+
 	} // End Images column function
+
+	function addSlotMachine() {
+
+		var stateModifier = new StateModifier({
+			align: [0.5, 0.5],
+			origin: [0.5, 0.5]
+		});
+
+		// Create new surface, add HTML content from imageColumnContent into the surface
+		var slotMachine = new Surface({
+			content: '<img src="content/images/slotMachine.png" alt="Slot Machine" />',
+			size: [412, 387],
+		});
+
+		mainContext.add(stateModifier).add(slotMachine);
+
+	}
 
 
 }); // End of define function
 
+		

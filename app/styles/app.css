@@ -6,3 +6,16 @@ html {
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
 }
+
+.photos {
+	padding: 10px 0;
+}
+
+.photos img {
+	margin-bottom: 10px;
+}
+
+.photos img:last-child {
+	margin-bottom: 0;
+}
+
