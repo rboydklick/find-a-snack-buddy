@@ -40,7 +40,6 @@ define(function(require, exports, module) {
 	******** Call the functions ********
 	***********************************/
 	rotatingBackground();
-	imagesColumn();
 	addSlotMachine();
 
 
@@ -137,15 +136,27 @@ define(function(require, exports, module) {
 			origin: [0.5, 0.5]
 		});
 
-		// Create new surface, add HTML content from imageColumnContent into the surface
+		// Create suface for slot machine graphic
 		var slotMachine = new Surface({
 			content: '<img src="content/images/slotMachine.png" alt="Slot Machine" />',
 			size: [412, 387],
 		});
 
 		mainContext.add(stateModifier).add(slotMachine);
+		slotMachine.addClass('slotMachine');
+
+		// Create suface for slot machine's handle
+		var slotMachineHandle = new Surface({
+			content: '<img src="content/images/slotMachineHandle.png" alt="Slot Machine Handle" />',
+			size: [49, 209]
+		});
+
+		mainContext.add(slotMachineHandle);
+		slotMachineHandle.addClass('slotMachineHandle');
+		slotMachineHandle.on('click',imagesColumn);
 
 	}
+
 
 
 }); // End of define function
