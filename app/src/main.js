@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 	var Modifier = require('famous/core/Modifier');
 	var Transform = require('famous/core/Transform');
 	var ImageSurface = require('famous/surfaces/ImageSurface');
+	var ContainerSurface    = require("famous/surfaces/ContainerSurface");
 	var Surface = require('famous/core/Surface');
 	var Lightbox = require('famous/views/Lightbox');
 	var StateModifier = require('famous/modifiers/StateModifier');
@@ -78,6 +79,42 @@ define(function(require, exports, module) {
 
 	}
 
+
+	function addSlotMachine() {
+
+		var positionSlotMachine = new StateModifier({
+			align: [0.5, 0.5],
+			origin: [0.5, 0.5]
+		});
+
+		var positionSlotMachineHandle = new StateModifier({
+			align: [0.5, 0.5],
+			origin: [0.5, 0.5],
+			transform: Transform.translate(205, 40, 0)
+		});
+
+		// Create suface for slot machine graphic
+		var slotMachine = new Surface({
+			content: '<img src="content/images/slotMachine.png" alt="Slot Machine" />',
+			size: [412, 387],
+		});
+
+		mainContext.add(positionSlotMachine).add(slotMachine);
+		slotMachine.addClass('slotMachine');
+
+		// Create suface for slot machine's handle
+		var slotMachineHandle = new Surface({
+			content: '<img src="content/images/slotMachineHandle.png" alt="Slot Machine Handle" />',
+			size: [49, 209],
+		});
+
+		mainContext.add(positionSlotMachineHandle).add(slotMachineHandle);
+		slotMachineHandle.addClass('slotMachineHandle');
+		slotMachineHandle.on('click',imagesColumn);
+
+	}
+
+
 	function imagesColumn() {
 
 		// An array of all the images used in the column of peoples' photos
@@ -109,6 +146,7 @@ define(function(require, exports, module) {
 			}
 		});
 
+
 		// Modifier to center the column of photos
 		var stateModifier = new StateModifier({
 			align: [0.5, 0],
@@ -128,36 +166,6 @@ define(function(require, exports, module) {
 
 
 	} // End Images column function
-
-	function addSlotMachine() {
-
-		var stateModifier = new StateModifier({
-			align: [0.5, 0.5],
-			origin: [0.5, 0.5]
-		});
-
-		// Create suface for slot machine graphic
-		var slotMachine = new Surface({
-			content: '<img src="content/images/slotMachine.png" alt="Slot Machine" />',
-			size: [412, 387],
-		});
-
-		mainContext.add(stateModifier).add(slotMachine);
-		slotMachine.addClass('slotMachine');
-
-		// Create suface for slot machine's handle
-		var slotMachineHandle = new Surface({
-			content: '<img src="content/images/slotMachineHandle.png" alt="Slot Machine Handle" />',
-			size: [49, 209]
-		});
-
-		mainContext.add(slotMachineHandle);
-		slotMachineHandle.addClass('slotMachineHandle');
-		slotMachineHandle.on('click',imagesColumn);
-
-	}
-
-
 
 }); // End of define function
 
