@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<title>Klick Learning Solutions</title>
+		<link rel="stylesheet/less" type="text/css" href="style.less" />
+		<script>
+		  less = {
+		    env: "development",
+		    async: false,
+		    fileAsync: false,
+		    poll: 1000,
+		    functions: {},
+		    dumpLineNumbers: "comments",
+		    relativeUrls: false,
+		    rootpath: ""
+		  };
+		</script>
+		<script src="less-1.6.3.min.js"></script>
+	</head>
+	<body>
+		<div class="intro easy">
+			<div class="yellow">
+				<h1>#KLSM<span>orning</span>K<span>nowledge</span></h1>
+				<p></p>
+			</div>
+			<div class="buttoncontainer">
+				<a href="#" class="button randomcard">Class is in Session!</a>
+			</div>
+			<div class="yellow"></div>
+		</div>
+		<div class="error cardcontainer easy">
+			<div>
+				<div>
+					<h2>Uh oh...</h2>
+					<p>Something went wrong. Are you logged into Genome?</p>
+					<a href="#" class="button close">Whoops</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="card" class="cardcontainer easy">
+			<div class="bgtarget">
+				<div>
+					<p>Something went wrong. Are you logged into Genome?</p>
+					<a href="#" class="button source" target="_blank">Source</a>
+					<a href="#" class="button next">More Knowledge</a>
+				</div>
+			</div>
+		</div>
+		<div class="loading active easy primer">
+			Loading...
+		</div>
+		<script src="jquery-1.8.3.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

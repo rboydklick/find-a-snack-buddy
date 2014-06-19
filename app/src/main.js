@@ -38,6 +38,22 @@ define(function(require, exports, module) {
 	var windowWidth = $(window).width();
 	var backgroundWidth = windowWidth*1.5;
 
+	// An array of all the images used in the column of peoples' photos
+	var imageColumnArray = [
+		'4355_2257.jpg',
+		'4541_2523.jpg',
+		'4603_2645.jpg',
+		'5042_2603.jpg',
+		'5049_2505.jpg',
+		'5077_2633.jpg',
+		'4355_2257.jpg',
+		'4541_2523.jpg',
+		'4603_2645.jpg',
+		'5042_2603.jpg',
+		'5049_2505.jpg',
+		'5077_2633.jpg'
+	];
+
 
 
 	/***********************************
@@ -45,6 +61,7 @@ define(function(require, exports, module) {
 	***********************************/
 	rotatingBackground();
 	addHeading();
+	getGenomePics();
 	addSlotMachine();
 
 
@@ -102,6 +119,23 @@ define(function(require, exports, module) {
 		mainContext.add(headingModifier).add(heading);
 	}
 
+	function getGenomePics() {
+		$.ajax(
+		'http://genome.klick.com/api/User?ForAutocompleter=true&Enabled=true&IsNotAPerson=false&format=JSON',
+		{
+			xhrFields: {
+				withCredentials: true 
+			},
+			success : function(data){
+				console.log(data);
+			},
+			error : function(){
+				console.log('error loading JSON data');
+			}
+		}
+	);
+	}
+
 
 	function addSlotMachine() {
 
@@ -139,22 +173,6 @@ define(function(require, exports, module) {
 
 
 	function imagesColumn() {
-
-		// An array of all the images used in the column of peoples' photos
-		var imageColumnArray = [
-		'4355_2257.jpg',
-		'4541_2523.jpg',
-		'4603_2645.jpg',
-		'5042_2603.jpg',
-		'5049_2505.jpg',
-		'5077_2633.jpg',
-		'4355_2257.jpg',
-		'4541_2523.jpg',
-		'4603_2645.jpg',
-		'5042_2603.jpg',
-		'5049_2505.jpg',
-		'5077_2633.jpg'
-		];
 
 		// Take contents of that array, put it into a variable as HTML content that has <br> tags in between <img> tags
 		var imageColumnContent = "";
