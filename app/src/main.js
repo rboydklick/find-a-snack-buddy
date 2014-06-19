@@ -124,6 +124,12 @@ define(function(require, exports, module) {
 		'4603_2645.jpg',
 		'5042_2603.jpg',
 		'5049_2505.jpg',
+		'5077_2633.jpg',
+		'4355_2257.jpg',
+		'4541_2523.jpg',
+		'4603_2645.jpg',
+		'5042_2603.jpg',
+		'5049_2505.jpg',
 		'5077_2633.jpg'
 		];
 
@@ -149,8 +155,8 @@ define(function(require, exports, module) {
 
 		// Modifier to center the column of photos
 		var photoStripModifier = new StateModifier({
-			align: [0.5, 0],
-			origin: [0.5, 0.5]
+			align: [0.5, -5.70],
+			origin: [0.5, -5.70]
 		});
 
 		// Modifier to center the column of photos
@@ -162,8 +168,8 @@ define(function(require, exports, module) {
 
 		// Create transform to animate the column
 		photoStripModifier.setTransform(
-		  Transform.translate(0, 200, 0),
-		  { duration : 1000, curve: Easing.inOutBack }
+		  Transform.translate(0, 1820, 0),
+		  { duration : 2000, curve: Easing.outSine }
 		);
 
 		photos.addClass('photos');
@@ -171,6 +177,7 @@ define(function(require, exports, module) {
 		var photosContainer = new ContainerSurface({
 			size:[300, 300],
 			properties: {
+				backgroundColor: '#ffffff',
 				overflow: 'hidden'
 			}
 		});
