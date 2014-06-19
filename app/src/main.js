@@ -35,12 +35,16 @@ define(function(require, exports, module) {
 
 
 	var photoColumnHeight = 0;
+	var windowWidth = $(window).width();
+	var backgroundWidth = windowWidth*1.5;
+
 
 
 	/***********************************
 	******** Call the functions ********
 	***********************************/
 	rotatingBackground();
+	addHeading();
 	addSlotMachine();
 
 
@@ -53,7 +57,6 @@ define(function(require, exports, module) {
 	function rotatingBackground() {		
 
 		// Create a surface for the background
-		var backgroundWidth = $(window).width()*1.5;
 		var background = new Surface({
 
 			size: [backgroundWidth, backgroundWidth],
@@ -77,6 +80,26 @@ define(function(require, exports, module) {
 		// Add the background surface to the main context
 		mainContext.add(rotate).add(background);
 
+	}
+
+	function addHeading() {
+		var titleWidth = windowWidth*0.5;
+		var titleHeight = titleWidth*0.1398;
+		var heading = new Surface({
+
+			size: [titleWidth, titleHeight],
+			properties: {
+				background: 'url(content/images/title.png) no-repeat center center',
+				backgroundSize: 'cover',
+				textAlign: 'center'
+			}
+		});
+
+		var headingModifier = new Modifier({
+			origin: [0.5, 0.1]
+		});
+
+		mainContext.add(headingModifier).add(heading);
 	}
 
 
