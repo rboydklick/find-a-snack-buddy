@@ -148,21 +148,37 @@ define(function(require, exports, module) {
 
 
 		// Modifier to center the column of photos
-		var stateModifier = new StateModifier({
+		var photoStripModifier = new StateModifier({
 			align: [0.5, 0],
 			origin: [0.5, 0.5]
 		});
 
+		// Modifier to center the column of photos
+		var centerPhotoContainer = new StateModifier({
+			align: [0.5, 0.5],
+			origin: [0.5, 0.5]
+		});
+
+
 		// Create transform to animate the column
-		stateModifier.setTransform(
+		photoStripModifier.setTransform(
 		  Transform.translate(0, 200, 0),
 		  { duration : 1000, curve: Easing.inOutBack }
 		);
 
 		photos.addClass('photos');
 
+		var photosContainer = new ContainerSurface({
+			size:[300, 300],
+			properties: {
+				overflow: 'hidden'
+			}
+		});
+
 		// Add 'photos' surface to mainContext, add modifier that center aligns the 'photos' surface
-		mainContext.add(stateModifier).add(photos);
+		photosContainer.add(photoStripModifier).add(photos);
+
+		mainContext.add(centerPhotoContainer).add(photosContainer);
 
 
 	} // End Images column function
