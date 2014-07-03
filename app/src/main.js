@@ -17,6 +17,9 @@ define(function(require, exports, module) {
 	var StateModifier = require('famous/modifiers/StateModifier');
 	var Easing = require('famous/transitions/Easing');
 
+	var theSelectedFew = [];
+	var peoplesPhotos = [];
+
 	// "Main Context" -- A div that Famo.us adds the 'surfaces' to
 	var mainContext = Engine.createContext();
 
@@ -177,9 +180,9 @@ define(function(require, exports, module) {
 
 		// Take contents of that array, put it into a variable as HTML content that has <br> tags in between <img> tags
 		var imageColumnContent = "";
-		for (var i = 0; i < imageColumnArray.length; i++) {
-			imageColumnContent += '<img src="content/images/' + imageColumnArray[i] + '"/>';
-			if(i!=imageColumnArray.length - 1){
+		for (var i = 0; i < peoplesPhotos.length; i++) {
+			imageColumnContent += '<img src="http://genome.klick.com/' + peoplesPhotos[i] + '"/>';
+			if(i!=peoplesPhotos.length - 1){
 				imageColumnContent += "<br/>";
 			}
 		}
@@ -240,9 +243,35 @@ define(function(require, exports, module) {
 
 		//
 
+	
+
 		for (i=0;i<9;i++){
 			var randomEntry = getRandomArbitrary(0,totalGenomeEntries);
-			console.log(genomeData.Entries[randomEntry].Name);			
+
+			// Puts name into an array
+			theSelectedFew.push(genomeData.Entries[0].Name);
+			
+			$.ajax(
+				'http://genome.klick.com:80/api/User/{UserID}?UserID='+genomeData.Entries[randomEntry].UserID+'&format=JSON',
+				{
+					xhrFields: {
+						withCredentials: true 
+					},
+					success : function(data){
+						peoplesPhotos.push(data.Entries[0].PhotoPath);
+
+					},
+					error : function(){
+						console.log('error loading JSON data');
+					}
+				}
+			);
+
+			//exclude people:
+				// yourself?
+				// people who are away? (Might need another web service for this)
+				// US employees?
+				// people who are on mat leave?
 		}
 	}
 
@@ -261,6 +290,12 @@ define(function(require, exports, module) {
 	function getRandomArbitrary(min, max) {
 	    return Math.floor(Math.random() * (max - min) + min);
 	}
+
+	/*function addPeoplesPhotos() {
+		for (i=0;i<peoplesPhotos.length;i++) {
+
+		}
+	}*/
 
 
 
