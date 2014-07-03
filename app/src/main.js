@@ -17,7 +17,7 @@ define(function(require, exports, module) {
 	var StateModifier = require('famous/modifiers/StateModifier');
 	var Easing = require('famous/transitions/Easing');
 
-	var theSelectedFew = [];
+	var peoplesNames = [];
 	var peoplesPhotos = [];
 
 	// "Main Context" -- A div that Famo.us adds the 'surfaces' to
@@ -40,23 +40,6 @@ define(function(require, exports, module) {
 	var photoColumnHeight = 0;
 	var windowWidth = $(window).width();
 	var backgroundWidth = windowWidth*2.5;
-
-	// An array of all the images used in the column of peoples' photos
-	var imageColumnArray = [
-		'4355_2257.jpg',
-		'4541_2523.jpg',
-		'4603_2645.jpg',
-		'5042_2603.jpg',
-		'5049_2505.jpg',
-		'5077_2633.jpg',
-		'4355_2257.jpg',
-		'4541_2523.jpg',
-		'4603_2645.jpg',
-		'5042_2603.jpg',
-		'5049_2505.jpg',
-		'5077_2633.jpg'
-	];
-
 
 
 	/***********************************
@@ -174,6 +157,7 @@ define(function(require, exports, module) {
 		slotMachineHandle.on('click',function(){
 			getGenomePics();
 			imagesColumn();
+			revealSnackBuddy();
 		});
 
 	}
@@ -247,12 +231,12 @@ define(function(require, exports, module) {
 		//
 
 		peoplesPhotos = [];
+		peoplesNames = [];
 
 		for (i=0;i<9;i++){
 			var randomEntry = getRandomArbitrary(0,totalGenomeEntries);
 
-			// Puts name into an array
-			theSelectedFew.push(genomeData.Entries[0].Name);
+			
 			
 			$.ajax(
 				'http://genome.klick.com:80/api/User/{UserID}?UserID='+genomeData.Entries[randomEntry].UserID+'&format=JSON',
@@ -262,6 +246,7 @@ define(function(require, exports, module) {
 					},
 					success : function(data){
 						peoplesPhotos.push(data.Entries[0].PhotoPath);
+						peoplesNames.push(data.Entries[0].Name);
 
 					},
 					error : function(){
@@ -292,6 +277,13 @@ define(function(require, exports, module) {
 	// Generate a random number within a range
 	function getRandomArbitrary(min, max) {
 	    return Math.floor(Math.random() * (max - min) + min);
+	}
+
+	function revealSnackBuddy() {
+		var yourBuddysName = peoplesNames[0];
+		window.setTimeout(function(){
+			alert("Your snack buddy is... "+yourBuddysName+"!");	
+		}, 2200);
 	}
 
 
