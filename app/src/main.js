@@ -171,7 +171,10 @@ define(function(require, exports, module) {
 
 		mainContext.add(positionSlotMachineHandle).add(slotMachineHandle);
 		slotMachineHandle.addClass('slotMachineHandle');
-		slotMachineHandle.on('click',imagesColumn);
+		slotMachineHandle.on('click',function(){
+			getGenomePics();
+			imagesColumn();
+		});
 
 	}
 
@@ -243,7 +246,7 @@ define(function(require, exports, module) {
 
 		//
 
-	
+		peoplesPhotos = [];
 
 		for (i=0;i<9;i++){
 			var randomEntry = getRandomArbitrary(0,totalGenomeEntries);
@@ -290,13 +293,6 @@ define(function(require, exports, module) {
 	function getRandomArbitrary(min, max) {
 	    return Math.floor(Math.random() * (max - min) + min);
 	}
-
-	/*function addPeoplesPhotos() {
-		for (i=0;i<peoplesPhotos.length;i++) {
-
-		}
-	}*/
-
 
 
 }); // End of define function
