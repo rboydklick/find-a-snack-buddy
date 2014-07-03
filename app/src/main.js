@@ -36,7 +36,7 @@ define(function(require, exports, module) {
 
 	var photoColumnHeight = 0;
 	var windowWidth = $(window).width();
-	var backgroundWidth = windowWidth*1.5;
+	var backgroundWidth = windowWidth*2.5;
 
 	// An array of all the images used in the column of peoples' photos
 	var imageColumnArray = [
@@ -127,7 +127,8 @@ define(function(require, exports, module) {
 				withCredentials: true 
 			},
 			success : function(data){
-				console.log(data);
+
+				parseGenomeData(data);
 			},
 			error : function(){
 				console.log('error loading JSON data');
@@ -230,6 +231,38 @@ define(function(require, exports, module) {
 
 
 	} // End Images column function
+
+	function parseGenomeData(genomeData) {
+
+		// Get number of entries in Json object
+
+		var totalGenomeEntries = genomeLength(genomeData.Entries);
+
+		//
+
+		for (i=0;i<9;i++){
+			var randomEntry = getRandomArbitrary(0,totalGenomeEntries);
+			console.log(genomeData.Entries[randomEntry].Name);			
+		}
+	}
+
+	// Get number of entries (i.e., people) in Genome
+	function genomeLength(obj){
+	  var i=0;
+	  for (var x in obj){
+	    if(obj.hasOwnProperty(x)){
+	      i++;
+	    }
+	  } 
+	  return i;
+	}
+
+	// Generate a random number within a range
+	function getRandomArbitrary(min, max) {
+	    return Math.floor(Math.random() * (max - min) + min);
+	}
+
+
 
 }); // End of define function
 
